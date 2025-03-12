@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    /* flex-direction: column; */
+    /* Stack elements on top of eachother */
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    height: 100vh;
+    /* Ensures body takes full screen height */
+    margin: 0;
+    /* Removes default margin */
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+}
+
+#display {
+    display: inline;
+}
+
+.row {
+    border: 1px solid blue;
+}
+
