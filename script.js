@@ -32,7 +32,26 @@ function clearDisplay(element) {
 }
 
 function updateDisplay(display, button) {
+  if (button.classList.contains("decimal")) {
+    if (!operator) {
+      if (!display.value.includes(".")) {
+        display.value += ".";
+        firstNum = display.value; // Keep firstNum as a string to retain the decimal
+      }
+    } else {
+      if (!display.value.includes(".")) {
+        display.value += ".";
+        secondNum = display.value; // Keep secondNum as a string
+      }
+    }
+    return; // Stop further execution for decimals
+  }
   if (button.classList.contains("operand")) {
+    if (justCalculated) {
+      clearDisplay(display);
+      result = 0;
+      justCalculated = false;
+    }
     if (!operator) {
       display.value += button.textContent;
       firstNum = +display.value;
@@ -52,6 +71,7 @@ function updateDisplay(display, button) {
     if (firstNum !== "" && secondNum !== "") {
       // Calculate intermediate result
       result = operate(firstNum, secondNum, operator);
+      justCalculated = true;
       display.value = result; // Show result immediately
       firstNum = result; // Store result as new first number
       secondNum = ""; // Reset second number
@@ -63,8 +83,8 @@ function updateDisplay(display, button) {
 let firstNum = "";
 let secondNum = "";
 let operator = "";
-let opCount = 0;
-let result = "";
+let result = 0;
+let justCalculated = false;
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("input");
@@ -75,7 +95,8 @@ buttons.forEach((button) => {
       firstNum = "";
       secondNum = "";
       operator = "";
-      opCount = 0;
+      result = 0;
+      justCalculated = false;
       clearDisplay(display);
     } else {
       updateDisplay(display, button);
@@ -84,6 +105,7 @@ buttons.forEach((button) => {
     if (button.classList.contains("equal")) {
       if (firstNum !== "" && secondNum !== "") {
         result = operate(firstNum, secondNum, operator);
+        justCalculated = true;
         display.value = result;
         firstNum = result;
         secondNum = "";
