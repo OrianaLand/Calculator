@@ -32,6 +32,17 @@ function clearDisplay(element) {
 }
 
 function updateDisplay(display, button) {
+  if (button.classList.contains("delete")) {
+    let temp = "";
+    if (!operator) {
+      console.log("no op. del pressed");
+      firstNum = +display.value.slice(0, -1);
+      display.value = firstNum;
+    } else {
+      secondNum = +display.value.slice(0, -1);
+      display.value = secondNum;
+    }
+  }
   if (button.classList.contains("decimal")) {
     if (!operator) {
       if (!display.value.includes(".")) {
